@@ -3,8 +3,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FurnitureStore {
-
-    // List untuk menyimpan produk, keranjang, dan wishlist
     public static List<Product> products = new ArrayList<>();
     public static List<Product> cart = new ArrayList<>();
     public static List<Product> wishlist = new ArrayList<>();
@@ -15,8 +13,6 @@ public class FurnitureStore {
         initializeProducts();
         showMainMenu();
     }
-
-    // Fungsi untuk inisialisasi produk
     public static void initializeProducts() {
         products.add(new Product(1, "Kursi Kayu", 500000, "Kursi kayu berkualitas."));
         products.add(new Product(2, "Meja Makan", 1200000, "Meja makan elegan."));
@@ -142,15 +138,14 @@ public class FurnitureStore {
         }
         System.out.println("Produk tidak ditemukan.");
     }
-    public static void addToCart() {
-        System.out.print("Masukkan ID produk untuk ditambahkan ke keranjang: ");
+    public static void viewProductDetail() {
+        System.out.print("Masukkan ID produk untuk melihat detail: ");
         int productId = scanner.nextInt();
         scanner.nextLine(); // Bersihkan newline
 
         for (Product product : products) {
             if (productId == product.getId()) {
-                cart.add(product);
-                System.out.println(product.getName() + " ditambahkan ke keranjang.");
+                System.out.println(product);
                 return;
             }
         }
@@ -167,6 +162,9 @@ public class FurnitureStore {
         System.out.println("5. Paylatter");
         System.out.println("6. Pembayaran di Tempat (COD)");
     }
+    public static void shippingDetails() {
+        System.out.println("Pengiriman dilakukan melalui jasa kurir terpercaya. Estimasi pengiriman 3-5 hari kerja.");
+    }
     public static void productReview() {
         System.out.println("⭐⭐⭐⭐⭐ (5/5) \"Kursi Kayu");
         System.out.println("⭐⭐⭐⭐ (4/5) \"Meja Makan");
@@ -179,6 +177,82 @@ public class FurnitureStore {
         System.out.println("⭐⭐⭐⭐⭐ (5/5) \"Rak Piring");
         System.out.println("⭐⭐⭐⭐⭐ (5/5) \"Meja Belajar");
     }
-    public static void shippingDetails() {
-        System.out.println("Pengiriman dilakukan melalui jasa kurir terpercaya. Estimasi pengiriman 3-5 hari kerja.");
+    public static void wishlist() {
+        System.out.println("Daftar wishlist:");
+        for (Product product : wishlist) {
+            System.out.println(product);
+        }
+        if (wishlist.isEmpty()) {
+            System.out.println("Anda Tidak Memiliki Wishlist.");
+        }
     }
+    public static void reminderNotification() {
+        System.out.println("Jangan lupa belanja untuk promo minggu ini.");
+    }
+    public static void findNearestStore() {
+        System.out.println("Toko terdekat Anda berada di Jl. Merdeka No. 123, Kota Jakarta.");
+    }
+    public static void logout() {
+        if (loggedInUser != null) {
+            loggedInUser = null;
+            System.out.println("Logout berhasil.");
+        } else {
+            System.out.println("Anda belum login.");
+        }
+    }
+    public static String input(String prompt) {
+        System.out.print(prompt + ": ");
+        return scanner.nextLine();
+    }
+}
+class Product {
+    private int id;
+    private String name;
+    private int price;
+    private String description;
+
+    public Product(int id, String name, int price, String description) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() {
+        return id + ". " + name + " - Rp" + price + " (" + description + ")";
+    }
+}
+class User {
+    private String username;
+    private String password;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+}
